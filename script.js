@@ -788,6 +788,44 @@ const CLOUD = {
 };
 
 const CLOUD_STORE_KEY = "fr-roadtrip-cloud-v5";
+
+
+function cloudGetConfig(){
+  const c = window.APP_CONFIG || {};
+  return {
+    sbUrl: (c.SUPABASE_URL || "").trim(),
+    sbAnon: (c.SUPABASE_ANON_KEY || "").trim(),
+    slug: (c.TRIP_SLUG || "").trim(),
+    autoloadPublic: !!c.AUTOLOAD_PUBLIC
+  };
+}
+
+async function cloudPublicLoadIfConfigured(){
+  const cfg = cloudGetConfig();
+  if(!cfg.autoloadPublic) return false;
+  if(!cfg.sbUrl || !cfg.sbAnon || !cfg.slug) return false;
+  if(!window.supabase) return false;
+  // Create client for public (no auth required)
+  supa = window.supabase.createClient(cfg.sbUrl, cfg.sbAnon);
+  try{
+    const { data, error } = await supa
+      .from("trips")
+      .select("data,updated_at")
+      .eq("slug", cfg.slug)
+      .order("updated_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if(error || !data) return false;
+    state = normalizeState(data.data);
+    selectedId = state.days[0]?.id || null;
+    save(); // local cache
+    renderAll();
+    cloudSetStatus("Auto-Load aktiv (geladen)", "ok");
+    return true;
+  }catch(e){
+    return false;
+  }
+}
 let supa = null;
 let cloudAutoTimer = null;
 
@@ -801,8 +839,14 @@ function cloudSetStatus(text, kind){
 function cloudOpen(){ CLOUD.modal.classList.remove("hidden"); }
 function cloudClose(){ CLOUD.modal.classList.add("hidden"); }
 
+
 function cloudLoadSettings(){
   try{
+    const cfg = cloudGetConfig();
+    if(cfg.sbUrl && !CLOUD.sbUrl.value) CLOUD.sbUrl.value = cfg.sbUrl;
+    if(cfg.sbAnon && !CLOUD.sbAnon.value) CLOUD.sbAnon.value = cfg.sbAnon;
+    if(cfg.slug && !CLOUD.slug.value) CLOUD.slug.value = cfg.slug;
+
     const raw = localStorage.getItem(CLOUD_STORE_KEY);
     if(!raw) return;
     const s = JSON.parse(raw);
@@ -995,6 +1039,9 @@ if(CLOUD.btn){
   CLOUD.btn.addEventListener("click", async () => {
     cloudOpen();
     cloudLoadSettings();
+
+// Auto-Load für Read-only Geräte (z.B. Handy)
+cloudPublicLoadIfConfigured();
     await cloudRefreshSessionStatus();
   });
 }
@@ -1022,3 +1069,6 @@ if(CLOUD.auto) CLOUD.auto.addEventListener("change", () => {
 });
 
 cloudLoadSettings();
+
+// Auto-Load für Read-only Geräte (z.B. Handy)
+cloudPublicLoadIfConfigured();

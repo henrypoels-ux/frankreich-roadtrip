@@ -77,3 +77,22 @@ for update using (owner = auth.uid()) with check (owner = auth.uid());
 Supabase JS wird via CDN eingebunden:
 https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2
 Quelle: Supabase Docs „Install via CDN“.
+
+---
+
+## Komfort-Setup: Handy ohne Login (Auto-Load)
+Damit du am Handy **nichts eingeben** musst, trage URL + Publishable Key + Trip-ID einmal in `config.js` ein:
+
+1) GitHub Repo öffnen → Datei `config.js` → **Edit (Stift)**
+2) Ersetzen:
+- `PASTE_SUPABASE_URL_HERE` → deine Supabase Project URL
+- `PASTE_SB_PUBLISHABLE_KEY_HERE` → dein Publishable key (`sb_publishable_...`)
+- `TRIP_SLUG` → deine Trip-ID (z.B. `frankreich-2026`)
+3) Commit
+
+Danach:
+- Seite am Handy öffnen → lädt automatisch aus der Cloud (ohne Login)
+- Bearbeiten/Schreiben bleibt weiterhin nur per Login im Cloud-Sync-Dialog möglich.
+
+Sicherheit:
+- Verwende **nie** einen `sb_secret_...` Key im Browser.
