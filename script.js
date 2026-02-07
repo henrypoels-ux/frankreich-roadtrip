@@ -395,36 +395,56 @@ function renderEditor(){
     </div>
   `;
 
-  const bind = (id, key) => {
-    const el = document.getElementById(id);
-    el.addEventListener("input", () => {
-      d[key] = el.value;
-      save();
-      renderAll();
-    });
-  };
+const bind = (id, key) => {
+  const el = document.getElementById(id);
+
+  el.addEventListener("input", () => {
+    d[key] = el.value;
+    save();              // ✅ nur speichern
+  });
+
+  el.addEventListener("blur", () => {
+    renderAll();         // ✅ erst neu rendern, wenn Feld verlassen wird
+  });
+};
 
   bind("f_title", "title");
   bind("f_location", "location");
   bind("f_date", "date");
   bind("f_image", "image");
 
-  document.getElementById("f_description").addEventListener("input", (e) => {
-    d.description = e.target.value;
-    save();
-    renderAll();
-  });
+const desc = document.getElementById("f_description");
 
-  document.getElementById("f_lat").addEventListener("input", (e) => {
-    d.coordinates[0] = safeNum(e.target.value, d.coordinates[0]);
-    save();
-    renderAll();
-  });
-  document.getElementById("f_lng").addEventListener("input", (e) => {
-    d.coordinates[1] = safeNum(e.target.value, d.coordinates[1]);
-    save();
-    renderAll();
-  });
+desc.addEventListener("input", (e) => {
+  d.description = e.target.value;
+  save();
+});
+
+desc.addEventListener("blur", () => {
+  renderAll();
+});
+
+  const latEl = document.getElementById("f_lat");
+
+latEl.addEventListener("input", (e) => {
+  d.coordinates[0] = safeNum(e.target.value, d.coordinates[0]);
+  save();
+});
+
+latEl.addEventListener("blur", () => {
+  renderAll();
+});
+  
+const lngEl = document.getElementById("f_lng");
+
+lngEl.addEventListener("input", (e) => {
+  d.coordinates[1] = safeNum(e.target.value, d.coordinates[1]);
+  save();
+});
+
+lngEl.addEventListener("blur", () => {
+  renderAll();
+});
 
   const hlList = document.getElementById("hl_list");
   const redrawHighlights = () => {
