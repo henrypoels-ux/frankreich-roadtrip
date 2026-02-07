@@ -1,0 +1,367 @@
+{
+  "trip_title": "Südfrankreich Roadtrip – 2 Wochen (editierbar)",
+  "source": {
+    "title": "Der perfekte Südfrankreich Roadtrip: Reiseroute für 2 Wochen",
+    "url": "https://www.traveloptimizer.de/suedfrankreich-roadtrip-route/",
+    "note": "Die Inhalte in diesem Plan sind als Zusammenfassung/Paraphrase angelegt und dienen als Startpunkt zum Anpassen."
+  },
+  "hero_image": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1600&q=60",
+  "stations": [
+    {
+      "name": "Lac de Serre-Ponçon",
+      "nights": "2–3",
+      "coordinates": [
+        44.49,
+        6.3
+      ],
+      "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=60"
+    },
+    {
+      "name": "Verdonschlucht",
+      "nights": "2",
+      "coordinates": [
+        43.75,
+        6.36
+      ],
+      "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=60"
+    },
+    {
+      "name": "Avignon",
+      "nights": "2",
+      "coordinates": [
+        43.9493,
+        4.8055
+      ],
+      "image": "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1200&q=60"
+    },
+    {
+      "name": "Marseille",
+      "nights": "2",
+      "coordinates": [
+        43.2965,
+        5.3698
+      ],
+      "image": "https://images.unsplash.com/photo-1500043357865-c6b8827edf2a?auto=format&fit=crop&w=1200&q=60"
+    },
+    {
+      "name": "Saint‑Tropez",
+      "nights": "1",
+      "coordinates": [
+        43.2677,
+        6.6407
+      ],
+      "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=60"
+    },
+    {
+      "name": "Cannes",
+      "nights": "1",
+      "coordinates": [
+        43.5528,
+        7.0174
+      ],
+      "image": "https://images.unsplash.com/photo-1526481280695-3c687fd5432c?auto=format&fit=crop&w=1200&q=60"
+    },
+    {
+      "name": "Nizza",
+      "nights": "3",
+      "coordinates": [
+        43.7102,
+        7.262
+      ],
+      "image": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=60"
+    }
+  ],
+  "days": [
+    {
+      "id": "day-0",
+      "title": "Anreise zum Lac de Serre‑Ponçon",
+      "date": "",
+      "location": "Französische Alpen",
+      "description": "Ankunft im Raum Lac de Serre‑Ponçon, einchecken und entspannt ankommen.",
+      "highlights": [
+        "Anreise-Tag",
+        "Check‑in",
+        "Abend ruhig ausklingen lassen"
+      ],
+      "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=60",
+      "coordinates": [
+        44.49,
+        6.3
+      ]
+    },
+    {
+      "id": "day-1",
+      "title": "Serre‑Ponçon – See‑Highlights",
+      "date": "",
+      "location": "Lac de Serre‑Ponçon",
+      "description": "Rundfahrt zu Aussichtspunkten, Staumauer und kurzen Stopps am See.",
+      "highlights": [
+        "Aussichtspunkte",
+        "Staumauer‑Blick",
+        "Fotostopps"
+      ],
+      "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=60",
+      "coordinates": [
+        44.49,
+        6.3
+      ]
+    },
+    {
+      "id": "day-2",
+      "title": "Wanderung Pic de Morgon",
+      "date": "",
+      "location": "Serre‑Ponçon Region",
+      "description": "Sportlicher Tag: anspruchsvollere Tour mit starkem Panorama; danach Erholung.",
+      "highlights": [
+        "Ridge‑Passagen",
+        "Bergsee‑Stopp",
+        "Pool/Chillen am Nachmittag"
+      ],
+      "image": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=60",
+      "coordinates": [
+        44.49,
+        6.3
+      ]
+    },
+    {
+      "id": "day-3",
+      "title": "Weiterfahrt zur Verdonschlucht",
+      "date": "",
+      "location": "Verdonschlucht",
+      "description": "Fahrt Richtung Verdon und erste Aussichtspunkte entlang der Schlucht.",
+      "highlights": [
+        "Ankommen & Aussicht",
+        "kurzer Spaziergang",
+        "Abend in einem der kleinen Orte"
+      ],
+      "image": "https://images.unsplash.com/photo-1457332813143-353928970b20?auto=format&fit=crop&w=1200&q=60",
+      "coordinates": [
+        43.75,
+        6.36
+      ]
+    },
+    {
+      "id": "day-4",
+      "title": "Verdon – Panoramastraßen & Spots",
+      "date": "",
+      "location": "Verdonschlucht",
+      "description": "Klassiker: Viewpoints, Brücken/Promenaden, je nach Lust Boot/Tretboot am Wasser.",
+      "highlights": [
+        "Panorama‑Stops",
+        "Ufer & Wasseraktivitäten",
+        "Sonnenuntergang‑Spot"
+      ],
+      "image": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=60",
+      "coordinates": [
+        43.75,
+        6.36
+      ]
+    },
+    {
+      "id": "day-5",
+      "title": "Verdon – Große Wanderung (optional)",
+      "date": "",
+      "location": "Verdonschlucht",
+      "description": "Option für einen sehr sportlichen Wandertag (Tunnel/Trail) – alternativ entspannterer Tag am Wasser.",
+      "highlights": [
+        "Sport‑Option",
+        "Tunnel/Trail‑Abschnitte",
+        "Alternative: gemütlich & baden"
+      ],
+      "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=60",
+      "coordinates": [
+        43.75,
+        6.36
+      ]
+    },
+    {
+      "id": "day-6",
+      "title": "Weiterfahrt nach Avignon",
+      "date": "",
+      "location": "Avignon",
+      "description": "Fahrt nach Avignon, erste Runde durch Altstadt, Abendessen.",
+      "highlights": [
+        "Altstadt‑Bummel",
+        "Abendstimmung",
+        "Food‑Stops"
+      ],
+      "image": "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1200&q=60",
+      "coordinates": [
+        43.9493,
+        4.8055
+      ]
+    },
+    {
+      "id": "day-7",
+      "title": "Avignon → Marseille & Stadt erkunden",
+      "date": "",
+      "location": "Marseille",
+      "description": "Anreise nach Marseille, verschiedene Viertel & Hafen; abends Aussichtspunkt.",
+      "highlights": [
+        "Markt/Noailles",
+        "Cours Julien (Street Art)",
+        "Vieux Port & MuCem (optional)",
+        "Notre‑Dame de la Garde zum Sonnenuntergang"
+      ],
+      "image": "https://images.unsplash.com/photo-1500043357865-c6b8827edf2a?auto=format&fit=crop&w=1200&q=60",
+      "coordinates": [
+        43.2965,
+        5.3698
+      ]
+    },
+    {
+      "id": "day-8",
+      "title": "Calanques & Cassis (Tagesausflug)",
+      "date": "",
+      "location": "Marseille / Cassis",
+      "description": "Natur‑Highlight bei Marseille: Calanques‑Buchten, Wanderung oder Boot – je nach Saison/Regeln.",
+      "highlights": [
+        "Calanques‑Buchten",
+        "Wander‑/Boot‑Option",
+        "Cassis als Abschluss"
+      ],
+      "image": "https://images.unsplash.com/photo-1458668383970-8ddd3927deed?auto=format&fit=crop&w=1200&q=60",
+      "coordinates": [
+        43.214,
+        5.5396
+      ]
+    },
+    {
+      "id": "day-9",
+      "title": "Küstenroute nach Saint‑Tropez",
+      "date": "",
+      "location": "Saint‑Tropez",
+      "description": "Der Weg ist das Ziel: schöne Strände und Küstenstraße, abends Saint‑Tropez.",
+      "highlights": [
+        "Hyères‑Strand (Flamingos möglich)",
+        "Küstenstraße",
+        "Escalet/Pampelonne",
+        "Zitadelle‑Aussicht"
+      ],
+      "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=60",
+      "coordinates": [
+        43.2677,
+        6.6407
+      ]
+    },
+    {
+      "id": "day-10",
+      "title": "Saint‑Tropez & Weiterfahrt nach Cannes",
+      "date": "",
+      "location": "Cannes",
+      "description": "Vormittag entspannt, danach Richtung Cannes; abends Promenade/Altstadt.",
+      "highlights": [
+        "Bummeln & Hafen",
+        "Strandpause",
+        "Abend in Cannes"
+      ],
+      "image": "https://images.unsplash.com/photo-1526481280695-3c687fd5432c?auto=format&fit=crop&w=1200&q=60",
+      "coordinates": [
+        43.5528,
+        7.0174
+      ]
+    },
+    {
+      "id": "day-11",
+      "title": "Cannes/Umgebung (Grasse optional) → Nizza",
+      "date": "",
+      "location": "Nizza",
+      "description": "Optionaler Abstecher nach Grasse (Parfüm) und dann weiter nach Nizza.",
+      "highlights": [
+        "Altstadt‑Abendessen in Nizza",
+        "Promenade‑Spaziergang",
+        "Grasse optional"
+      ],
+      "image": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=60",
+      "coordinates": [
+        43.7102,
+        7.262
+      ]
+    },
+    {
+      "id": "day-12",
+      "title": "Nizza – Stadt & Aussicht",
+      "date": "",
+      "location": "Nizza",
+      "description": "Altstadt, Meer, Aussichtspunkte – ein klassischer Nizza‑Tag.",
+      "highlights": [
+        "Altstadt & Markt",
+        "Meer‑Zeit",
+        "Aussichtspunkt/Schlossberg optional"
+      ],
+      "image": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=60",
+      "coordinates": [
+        43.7102,
+        7.262
+      ]
+    },
+    {
+      "id": "day-13",
+      "title": "Èze & Cap‑Ferrat (Tagesausflug)",
+      "date": "",
+      "location": "Riviera",
+      "description": "Dorf‑Feeling & Küstenwanderung: Èze und Cap‑Ferrat als schöner Ausflug ab Nizza.",
+      "highlights": [
+        "Èze Dorf",
+        "Küstenweg Cap‑Ferrat",
+        "Villa/Gärten optional"
+      ],
+      "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=60",
+      "coordinates": [
+        43.7265,
+        7.327
+      ]
+    },
+    {
+      "id": "day-14",
+      "title": "Monaco als Abschluss (optional)",
+      "date": "",
+      "location": "Monaco",
+      "description": "Wenn du magst: Tagestrip nach Monaco als Finale vor der Heimreise.",
+      "highlights": [
+        "Altstadt/Port",
+        "Aussichtspunkte",
+        "Abend zurück nach Nizza oder Heimreise starten"
+      ],
+      "image": "https://images.unsplash.com/photo-1496307653780-42ee777d4833?auto=format&fit=crop&w=1200&q=60",
+      "coordinates": [
+        43.7384,
+        7.4246
+      ]
+    }
+  ],
+  "sections": {
+    "book_ahead": [
+      "Beliebte Museen/Attraktionen in Städten (z. B. Museen in Marseille) ggf. vorab buchen.",
+      "In der Hochsaison: Unterkünfte/Hotels und Stellplätze früh reservieren."
+    ],
+    "costs": {
+      "note": "Beispiel-Kostenrahmen aus dem Vorbildartikel (als Orientierung).",
+      "per_person_total_eur": 2035,
+      "per_person_fixed_eur": 1185,
+      "items": [
+        {
+          "label": "An- & Abreise (Maut+Sprit)",
+          "value_eur": 150
+        },
+        {
+          "label": "Unterkünfte (mittleres Segment)",
+          "value_eur": 950
+        },
+        {
+          "label": "Sprit vor Ort",
+          "value_eur": 85
+        },
+        {
+          "label": "Rest (Essen, Eintritte, Parken, Ausflüge)",
+          "value_eur": 850
+        }
+      ]
+    },
+    "tips": [
+      "In Städten auf Wertsachen achten, besonders in belebten Vierteln.",
+      "Parken in größeren Städten kann teuer werden; Parkhäuser/Tagessätze einplanen.",
+      "Wenn du im Frühling in die Alpen-Regionen fährst: Wetter/Schneelage prüfen und Reihenfolge ggf. drehen."
+    ]
+  }
+}

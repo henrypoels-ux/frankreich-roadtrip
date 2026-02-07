@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Frankreich Roadtrip – Planner</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">🇫🇷</div>
+      <div class="brandText">
+        <input id="tripTitle" class="titleInput" value="" placeholder="Titel" />
+        <div class="subtitle">Drag & Drop • Route (km) • Bearbeiten • Export</div>
+      </div>
+    </div>
+
+    <nav class="tabs" aria-label="Ansichten">
+      <button id="tabPlanner" class="tab active" type="button">Plan</button>
+      <button id="tabView" class="tab" type="button">Ansicht</button>
+    </nav>
+
+    <div class="actions">
+      <button id="addBtn" class="btn primary" type="button">+ Tag hinzufügen</button>
+      <button id="exportBtn" class="btn" type="button">Export JSON</button>
+
+      <label class="btn file" title="JSON importieren">
+        Import JSON
+        <input id="importFile" type="file" accept="application/json" />
+      </label>
+
+      <button id="printBtn" class="btn" type="button">Drucken / PDF</button>
+      <button id="cloudBtn" class="btn" type="button">Cloud Sync</button>
+      <button id="resetBtn" class="btn danger" type="button">Reset</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- Planner View -->
+    <div id="plannerView" class="view active">
+      <aside class="sidebar">
+        <div class="panelHeader">
+          <h2>Reiseplan</h2>
+          <div class="hint">Tage per Drag & Drop sortieren. Route wird automatisch berechnet.</div>
+        </div>
+
+        <ul id="dayList" class="dayList"></ul>
+
+        <div class="routeBox">
+          <div class="routeHeader">
+            <div>
+              <div class="routeTitle">Route</div>
+              <div class="routeMeta"><span id="routeTotal"></span> • <span id="routeLegCount"></span></div>
+            </div>
+            <button id="openRouteBtn" class="btn small" type="button">In Google Maps öffnen</button>
+          </div>
+          <div id="routeLegs" class="routeLegs"></div>
+          <div class="smallNote">Hinweis: Kilometer sind Luftlinie (sehr gute Orientierung). Fahrstrecke hängt von Straßen ab.</div>
+        </div>
+      </aside>
+
+      <section class="content">
+        <div class="contentGrid">
+          <div class="card">
+            <div class="cardHeader">
+              <h2>Details</h2>
+              <div id="selectedMeta" class="meta"></div>
+            </div>
+            <div id="editor" class="editor empty"></div>
+          </div>
+
+          <div class="card mapCard">
+            <div class="cardHeader">
+              <h2>Karte</h2>
+              <div class="meta">OpenStreetMap-Embed (offline-freundlich) + Links</div>
+            </div>
+            <div class="mapWrap">
+              <iframe id="mapFrame" class="mapFrame" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="mapLinks">
+              <a id="osmLink" target="_blank" rel="noopener">In OpenStreetMap öffnen</a>
+              <a id="gMapsLink" target="_blank" rel="noopener">In Google Maps öffnen</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Public / Blog-like View -->
+    <div id="publicView" class="view">
+      <section class="hero">
+        <div class="heroInner">
+          <div class="heroCopy">
+            <p class="kicker">Südfrankreich • Roadtrip • 2 Wochen</p>
+            <h1 id="publicTitle" class="heroTitle"></h1>
+            <p id="publicIntro" class="heroIntro"></p>
+            <div class="heroCtas">
+              <button id="scrollStations" class="btn primary" type="button">Stationen</button>
+              <button id="scrollDays" class="btn" type="button">Reiseplan</button>
+              <button id="scrollRoute" class="btn" type="button">Route</button>
+            </div>
+          </div>
+          <div class="heroMedia">
+            <div class="heroImgWrap">
+              <img id="heroImg" alt="Südfrankreich" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="stationsSection">
+        <div class="sectionHeader">
+          <h2>Stationen</h2>
+          <p>Automatisch aus deinen Tagen generiert (du pflegst nur die Tage).</p>
+        </div>
+        <div id="stationsGrid" class="stationsGrid"></div>
+      </section>
+
+      <section class="section" id="routeSection">
+        <div class="sectionHeader">
+          <h2>Route & Etappen</h2>
+          <p>Automatisch berechnet (Luftlinie). In Google Maps kannst du die echte Fahrstrecke sehen.</p>
+        </div>
+        <div class="routePublic">
+          <div class="routePublicTop">
+            <div class="big" id="routeTotalPublic"></div>
+            <button id="openRouteBtnPublic" class="btn primary" type="button">Route in Google Maps</button>
+          </div>
+          <div id="routeLegsPublic" class="routeLegsPublic"></div>
+        </div>
+      </section>
+
+      <section class="section" id="daysSection">
+        <div class="sectionHeader">
+          <h2>Detaillierter Reiseplan</h2>
+          <p>Klicke auf einen Tag, um ihn aufzuklappen. Nutze „Weiter“, um schnell durchzugehen.</p>
+        </div>
+        <div id="accordion" class="accordion"></div>
+      </section>
+
+      <section class="section">
+        <div class="twoCol">
+          <div class="card pad">
+            <h2>Was vorab buchen?</h2>
+            <ul id="bookAhead"></ul>
+          </div>
+          <div class="card pad">
+            <h2>Kosten (Orientierung)</h2>
+            <p class="meta" id="costNote"></p>
+            <div id="costCards" class="costCards"></div>
+            <div class="costTotal">
+              <div>
+                <div class="meta">Gesamt pro Person</div>
+                <div class="big" id="costTotal"></div>
+              </div>
+              <div>
+                <div class="meta">Fixkosten pro Person</div>
+                <div class="big" id="costFixed"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="card pad">
+          <h2>Tipps</h2>
+          <ul id="tips"></ul>
+        </div>
+      </section>
+
+      <footer class="publicFooter">
+        <div class="meta">
+          Quelle/Inspirationsvorlage:
+          <a id="sourceLink" target="_blank" rel="noopener">traveloptimizer.de</a>
+          • Inhalte hier sind zusammengefasst und als editierbarer Startpunkt gedacht.
+        </div>
+      </footer>
+    </div>
+  </main>
+
+<!-- Cloud Sync Modal -->
+<div id="cloudModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="cloudTitle">
+  <div class="modalBackdrop" data-close></div>
+  <div class="modalCard">
+    <div class="modalHead">
+      <h2 id="cloudTitle">Cloud Sync (Supabase)</h2>
+      <button class="iconBtn" id="cloudClose" type="button" aria-label="Schließen">✕</button>
+    </div>
+
+    <div class="modalBody">
+      <p class="meta">
+        Ziel: Gleicher Stand auf allen Geräten. Du brauchst ein kostenloses Supabase-Projekt (URL + anon key).
+      </p>
+
+      <div class="formGrid">
+        <div class="row">
+          <div>
+            <label>Supabase URL</label>
+            <input id="sbUrl" type="text" placeholder="https://xxxx.supabase.co" />
+          </div>
+          <div>
+            <label>Supabase anon key</label>
+            <input id="sbAnon" type="text" placeholder="eyJhbGciOi..." />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>E‑Mail</label>
+            <input id="sbEmail" type="text" placeholder="du@domain.de" />
+          </div>
+          <div>
+            <label>Passwort</label>
+            <input id="sbPass" type="password" placeholder="••••••••" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Trip‑ID (frei wählbar)</label>
+            <input id="tripSlug" type="text" placeholder="z.B. frankreich-2026" />
+          </div>
+          <div>
+            <label>Status</label>
+            <div id="cloudStatus" class="statusPill">nicht verbunden</div>
+          </div>
+        </div>
+
+        <div class="cloudActions">
+          <button id="sbSignup" class="btn" type="button">Registrieren</button>
+          <button id="sbLogin" class="btn primary" type="button">Login</button>
+          <button id="sbLogout" class="btn" type="button">Logout</button>
+        </div>
+
+        <div class="cloudActions">
+          <button id="cloudLoad" class="btn" type="button">Aus Cloud laden</button>
+          <button id="cloudSave" class="btn primary" type="button">In Cloud speichern</button>
+          <label class="toggle">
+            <input id="cloudAuto" type="checkbox" />
+            <span>Auto‑Sync (bei Änderungen)</span>
+          </label>
+        </div>
+
+        <div class="meta">
+          Tipp: Wenn du Design/Funktionen updatest, bleiben Inhalte erhalten – Auto‑Sync lädt/speichert den Stand zentral.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
+</body>
+</html>
