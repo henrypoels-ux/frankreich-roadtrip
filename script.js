@@ -118,6 +118,7 @@ function normalizeState(s){
       description: String(d?.description ?? ""),
       highlights: Array.isArray(d?.highlights) ? d.highlights.map(String) : [],
       image: String(d?.image ?? ""),
+      gmaps: String(d?.gmaps ?? ""),
       coordinates: Array.isArray(d?.coordinates) && d.coordinates.length === 2
         ? [safeNum(d.coordinates[0], 0), safeNum(d.coordinates[1], 0)]
         : [0,0],
@@ -158,14 +159,44 @@ function onDrop(e){
 }
 
 /* -------- Map (iframe) -------- */
+
+/* -------- Google Maps Link → lat/lng -------- */
+function parseGoogleMapsLatLng(url){
+  if(!url) return null;
+  const s = String(url);
+
+  // 1) q=lat,lng  (z.B. https://www.google.com/maps?q=48.123,7.456)
+  let m = s.match(/[?&]q=(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)/i);
+  if(m) return [Number(m[1]), Number(m[2])];
+
+  // 2) @lat,lng,zoom  (z.B. .../@48.123,7.456,12z)
+  m = s.match(/@(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)/);
+  if(m) return [Number(m[1]), Number(m[2])];
+
+  // 3) fallback: any ".../lat,lng" in path (kommt selten vor)
+  m = s.match(/\/(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)(?:,|$)/);
+  if(m) return [Number(m[1]), Number(m[2])];
+
+  return null;
+}
+
 function updateMapForDay(d){
+  // Wenn Google-Maps-Link vorhanden: Koordinaten daraus ziehen (falls möglich)
+  const parsed = parseGoogleMapsLatLng(d?.gmaps);
+  if(parsed){
+    d.coordinates = parsed;
+  }
+
   const lat = safeNum(d?.coordinates?.[0], 46.5);
   const lng = safeNum(d?.coordinates?.[1], 2.5);
   const bbox = [lng-0.08, lat-0.05, lng+0.08, lat+0.05].join("%2C");
   const marker = `${lat}%2C${lng}`;
   els.mapFrame.src = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${marker}`;
   els.osmLink.href = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=12/${lat}/${lng}`;
-  els.gMapsLink.href = `https://www.google.com/maps?q=${lat},${lng}`;
+
+  // Google Maps: wenn Link gesetzt, nutze ihn; sonst fallback lat/lng
+  const g = (d?.gmaps && String(d.gmaps).trim()) ? String(d.gmaps).trim() : "";
+  els.gMapsLink.href = g || `https://www.google.com/maps?q=${lat},${lng}`;
 }
 
 /* -------- Route (km + Google Maps link) -------- */
@@ -332,9 +363,6 @@ function renderEditor(){
   const idx = state.days.findIndex(x => x.id === selectedId);
   els.selectedMeta.textContent = `Tag ${idx+1} • ID: ${d.id}`;
 
-  const lat = safeNum(d.coordinates?.[0], 0);
-  const lng = safeNum(d.coordinates?.[1], 0);
-
   els.editor.innerHTML = `
     <div class="formGrid">
       <div class="row">
@@ -364,16 +392,11 @@ function renderEditor(){
         <textarea id="f_description" placeholder="Kurzbeschreibung">${escapeHtml(d.description)}</textarea>
       </div>
 
-      <div class="row">
-        <div>
-          <label>Latitude</label>
-          <input id="f_lat" type="number" step="0.000001" value="${lat}" />
-        </div>
-        <div>
-          <label>Longitude</label>
-          <input id="f_lng" type="number" step="0.000001" value="${lng}" />
-        </div>
-      </div>
+<div>
+  <label>Google Maps Link (einfach hier einfügen)</label>
+  <input id="f_gmaps" type="text" value="${escapeAttr(d.gmaps || "")}" placeholder="Google-Maps Link..." />
+  <div class="meta">Tipp: In Google Maps → „Teilen“ → Link kopieren.</div>
+</div>
 
       <div>
         <label>Highlights</label>
@@ -412,6 +435,17 @@ const bind = (id, key) => {
   bind("f_location", "location");
   bind("f_date", "date");
   bind("f_image", "image");
+  bind("f_gmaps", "gmaps");
+
+  const gEl = document.getElementById("f_gmaps");
+  gEl.addEventListener("blur", () => {
+    const coords = parseGoogleMapsLatLng(d.gmaps);
+    if(coords){
+      d.coordinates = coords;
+      save();
+    }
+    renderAll();
+  });
 
 const desc = document.getElementById("f_description");
 
@@ -423,27 +457,6 @@ desc.addEventListener("input", (e) => {
 desc.addEventListener("blur", () => {
   renderAll();
 });
-
-  const latEl = document.getElementById("f_lat");
-
-latEl.addEventListener("input", (e) => {
-  d.coordinates[0] = safeNum(e.target.value, d.coordinates[0]);
-  save();
-});
-
-latEl.addEventListener("blur", () => {
-  renderAll();
-});
-  
-const lngEl = document.getElementById("f_lng");
-
-lngEl.addEventListener("input", (e) => {
-  d.coordinates[1] = safeNum(e.target.value, d.coordinates[1]);
-  save();
-});
-
-lngEl.addEventListener("blur", () => {
-  renderAll();
 });
 
   const hlList = document.getElementById("hl_list");
@@ -686,6 +699,7 @@ els.addBtn.addEventListener("click", () => {
     description: "",
     highlights: [],
     image: "",
+    gmaps: "",
     coordinates: [46.5, 2.5]
   };
   state.days.push(newDay);
@@ -758,7 +772,7 @@ async function loadInitial(){
 (async function(){
   state = normalizeState(await loadInitial());
   if(!state.days.length){
-    state.days = [{id: uid(), title:"Tag 1", date:"", location:"", description:"", highlights:[], image:"", coordinates:[46.5,2.5]}];
+    state.days = [{id: uid(), title:"Tag 1", date:"", location:"", description:"", highlights:[], image:"", gmaps:"", coordinates:[46.5,2.5]}];
   }
   selectedId = state.days[0]?.id || null;
   save();
